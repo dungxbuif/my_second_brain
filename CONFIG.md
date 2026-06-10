@@ -55,7 +55,23 @@ type_tags:
   - book
   - course
   - paper
+  - usecase      # 🆕 Use case / hands-on application
 ```
+
+---
+
+## 📦 Categories (Tracking)
+
+```yaml
+categories:
+  - book
+  - project
+  - course
+  - habit
+  - task
+  - research
+  - usecase      # 🆕 Use case thực tế — khác task ở chỗ gắn liền với context
+  - hub          # 🆕 Hub note (Map of Content) — nhóm chủ đề
 
 ---
 
@@ -163,4 +179,26 @@ nudge_rules:
   reading_stale_days: 7     # Sách chưa update > 7 ngày
   habit_break_alert: true   # Streak bị gián đoạn → nhắc
   project_stale_days: 14    # Project chưa update > 14 ngày
+```
+
+---
+
+## 📦 Groups (Free-form)
+
+> `groups` là trường trong frontmatter của tracking entry, dùng để gán item vào 1 hoặc nhiều nhóm chủ đề.
+> **Free-form** — không có danh sách cố định. Đặt tên tự do, Dataview tự query.
+
+```yaml
+# Ví dụ các groups đang dùng (chỉ để tham khảo, không phải whitelist):
+groups_examples:
+  - "Learn AI"              # Nhóm học AI: sách + khóa + use case + project
+  - "System Design"         # Nhóm System Design
+  - "Career 2026"           # Mục tiêu career
+  - "Homelab"               # Homelab setup
+  - "Database Mastery"      # Đi sâu về database
+
+# Quy tắc đặt tên groups:
+# - Tiếng Anh, Title Case
+# - Ngắn gọn (tối đa 3 từ)
+# - Khi nhóm lớn (>3 items) → tạo Hub Note tương ứng trong tracking/hubs/
 ```

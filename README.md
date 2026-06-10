@@ -1,5 +1,5 @@
 # 🧠 Second Brain — Documentation
-> **Version:** 1.1 | **Status:** 🟢 Released | **Updated:** 2026-06-05
+> **Version:** 1.1 | **Status:** 🟢 Released | **Updated:** 2026-06-10
 >
 > ⚠️ **Đây là source docs chính thức** của toàn bộ framework này.
 > Mọi thay đổi về thiết kế, quy tắc, cấu trúc đều phải được phản ánh ở đây.
@@ -117,11 +117,12 @@ second-brain/
 ├── staging/         ← Bản AI tóm tắt cô đọng
 ├── wiki/            ← Kiến thức hoàn thiện (human viết)
 ├── tracking/        ← Các files quản lý sách, task, dự án, khóa học
+│   └── hubs/        ← 🆕 Hub notes (Map of Content) cho từng nhóm chủ đề
 ├── dailylogs/       ← Nhật ký hàng ngày
 ├── archive/         ← Nơi lưu trữ (vd: archive/raw/)
 └── GUIDE/
     ├── WORKFLOW.md  ← Chi tiết 6 bước pipeline
-    └── TEMPLATES/   ← Templates cho raw, staging, wiki, tracking entries
+    └── TEMPLATES/   ← Templates cho raw, staging, wiki, tracking, hub
 ```
 
 ---
@@ -140,12 +141,13 @@ second-brain/
 | [[GUIDE/TEMPLATES/tracking_entry.md]] | Template cho tracking item | Human |
 | [[GUIDE/TEMPLATES/daily_log.md]] | Template cho daily log | Human |
 | **README.md** (file này) | Source docs chính thức | Human |
+| [[CHANGELOG.md]] | Nhật ký các phiên bản và thay đổi cấu trúc | Human |
 
 ---
 
 ## 📊 INDEX.md — Tracking System
 
-### Thiết kế (V1.1 - Dataview)
+### Thiết kế (Dataview)
 
 INDEX không còn dùng Markdown table thủ công. Thay vào đó, dùng plugin **Dataview** để tự động query từ các file markdown.
 Mỗi item cần track (sách, task, khóa học) sẽ là **1 file riêng** nằm trong thư mục `tracking/`.
@@ -247,6 +249,7 @@ Agent đọc toàn bộ INDEX.md → phân tích:
 | [[GUIDE/TEMPLATES/staging_entry.md]] | File staging/ — AI tóm tắt cô đọng |
 | [[GUIDE/TEMPLATES/wiki_entry.md]] | Wiki entry — human viết |
 | [[GUIDE/TEMPLATES/tracking_entry.md]] | File tracking (sách, khoá học, dự án...) |
+| [[GUIDE/TEMPLATES/hub_note.md]] | 🆕 Hub note — Map of Content cho nhóm chủ đề |
 | [[GUIDE/TEMPLATES/daily_log.md]] | File nhật ký hàng ngày |
 | [[GUIDE/TEMPLATES/review_card.md]] | Interview prep card |
 
@@ -311,46 +314,10 @@ Agent:
 
 ## 📜 Changelog
 
-> Mỗi lần thay đổi thiết kế lớn, ghi lại ở đây.
+Xem chi tiết lịch sử cập nhật cấu trúc và quy tắc framework tại: **[[CHANGELOG.md]]**
 
-### v1.1 (2026-06-05)
-**Status:** 🟢 Released
-
-**Thay đổi kiến trúc (Scalability):**
-- Đổi từ Markdown table sang Dataview block trong `INDEX.md`.
-- Mỗi tracking item giờ là 1 file riêng trong `tracking/`.
-- Tách Daily Log ra thư mục `dailylogs/` riêng biệt.
-- Thêm quy tắc Cleanup: Sau khi wiki được tạo, Agent tự xóa file staging tương ứng và di chuyển file raw vào `archive/raw/`.
-
-### v1.0 (2026-06-05)
-**Status:** 🟢 Released
-
-**Thiết kế ban đầu:**
-- Pipeline 5 bước: COLLECT → NORMALIZE → DIGEST → INDEX → SUGGEST
-- Cấu trúc: raw/ → staging/ → wiki/
-- INDEX.md = 1 bảng tracking linh hoạt (không hardcode sections)
-- CONFIG.md = cấu hình tập trung (inbox sources, tags, nudge thresholds)
-- AGENTS.md = **gateway** cho AI Agent, link đến docs chi tiết
-- Templates: raw, staging, wiki, review_card
-
-**Quyết định thiết kế:**
-- Human owns wiki/ — Agent chỉ đề xuất draft
-- raw/ giữ nguyên văn — staging/ là AI distillation
-- INDEX dùng 1 bảng chung + category field → linh hoạt mở rộng
-- Agent chủ động nhắc nhở, ngưỡng configurable
-- Framework thích ứng theo cách dùng, không ép rigid structure
-- **Self-evolve:** Agent chủ động đề xuất cải tiến khi phát hiện gap
-- **README.md = source docs chính thức** — mọi thay đổi phải ghi changelog
-
-<!-- 
-### v1.1 (YYYY-MM-DD)
-**Changes:**
-- ...
-
-### v2.0 (YYYY-MM-DD)
-**Breaking changes:**
-- ...
--->
+- **v1.1 (2026-06-10)**: Thêm Generic Grouping (`groups` field) & Hub Notes (`tracking/hubs/`).
+- **v1.0 (2026-06-05)**: Phiên bản đầu tiên với pipeline 6 bước và Dataview tracking.
 
 ---
 

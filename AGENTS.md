@@ -1,5 +1,5 @@
 # 🤖 AGENTS.md — Second Brain Gateway
-> **Version:** 1.1 | **Updated:** 2026-06-05
+> **Version:** 1.0 | **Updated:** 2026-06-05
 > 
 > ⚡ **Đây là GATEWAY** — AI Agent đọc file này ĐẦU TIÊN.
 > Nắm quy tắc ở đây, đọc chi tiết qua các link bên dưới.

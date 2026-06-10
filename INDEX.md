@@ -44,6 +44,16 @@ WHERE status != "✅ done" AND status != "🗑️ archived" AND status != "🔄 
 SORT priority desc, file.mtime desc
 ```
 
+### 🗻 Groups & Hubs
+
+> Items theo nhóm chủ đề. Nhóm lớn có Hub Note riêng trong `tracking/hubs/`.
+
+```dataview
+TABLE status, progress
+FROM "tracking/hubs"
+SORT status ASC, file.mtime desc
+```
+
 ---
 
 ## 📝 Daily Logs
