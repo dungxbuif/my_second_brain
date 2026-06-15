@@ -1,8 +1,9 @@
 ---
+type: Staged
 title: "{{TÊN CONCEPT / TOPIC}}"
-raw_source: "[[raw/{{YYYY-MM-DD_slug}}.md]]"
-category: knowledge
-created: {{YYYY-MM-DD}}
+description: "{{1-2 câu tóm tắt nhanh}}"
+raw_source: "[{{YYYY-MM-DD_slug}}](/raw/{{YYYY-MM-DD_slug}}.md)"
+timestamp: {{YYYY-MM-DDTHH:MM:SSZ}}
 tags: [{{tag1}}, {{tag2}}]
 wiki_path: "{{engineering/database}}"
 status: 🧠 staged
@@ -34,8 +35,8 @@ priority: 🟡 normal
 - **{{Term B}}** — {{giải thích ngắn}}
 
 ## Related (Liên kết)
-- [[{{staging hoặc wiki entry liên quan}}]]
+- [{{staging hoặc wiki entry liên quan}}](/staging/{{file-name}}.md)
 - 🔍 Cần tìm hiểu thêm: {{topic chưa có trong vault}}
 
 ---
-*Raw source: [[raw/{{source-file}}]] | Staged: {{YYYY-MM-DD}}*
+*Raw source: [{{source-file}}](/raw/{{source-file}}.md) | Staged: {{YYYY-MM-DD}}*

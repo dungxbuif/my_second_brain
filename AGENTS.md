@@ -1,3 +1,10 @@
+---
+type: Reference
+title: AGENTS Gateway
+description: Entry point and rules for AI agents operating within the framework
+timestamp: 2026-06-15T14:55:00Z
+---
+
 # 🤖 AGENTS.md — Second Brain Gateway
 > **Version:** 1.0 | **Updated:** 2026-06-05
 > 

@@ -1,3 +1,10 @@
+---
+type: Playbook
+title: "WORKFLOW v2 — Pipeline Chi Tiết"
+description: "Quy trình chi tiết của hệ thống"
+timestamp: 2026-06-15T14:55:00Z
+---
+
 # ⚙️ WORKFLOW v2 — Pipeline Chi Tiết
 > Đọc trước: [[../AGENTS.md]] | Config: [[../CONFIG.md]]
 

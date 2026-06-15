@@ -1,13 +1,14 @@
 ---
+type: {{Book | Project | Course | Habit | Task | Research | Usecase}}
 title: "{{Tên sách/dự án/khoá học/task}}"
-category: {{book | project | course | habit | task | research | usecase}}
+description: "{{1-2 câu tóm tắt nhanh}}"
 groups: []                  # Nhóm chủ đề — free-form, ví dụ: ["Learn AI", "System Design"]
-related: []                 # Items liên quan — ví dụ: ["tracking/book-xyz", "tracking/course-abc"]
+related: []                 # Items liên quan — ví dụ: ["/tracking/book-xyz.md"]
 status: {{⬜ todo | 🔄 doing | 👀 reading | ⏸️ paused | ✅ done | 📌 deferred | 🗑️ archived}}
 priority: {{🔴 urgent | 🟡 normal | 🟢 low | ⚪ someday}}
 progress: "{{ví dụ: 0%, Module 1/10, streak: 5}}"
 deadline: {{YYYY-MM-DD hoặc trống}}
-created_at: {{YYYY-MM-DD}}
+timestamp: {{YYYY-MM-DDTHH:MM:SSZ}}
 ---
 
 # {{Title}}

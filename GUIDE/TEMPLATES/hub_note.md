@@ -1,10 +1,11 @@
 ---
+type: Hub
 title: "{{Tên nhóm chủ đề}}"
-category: hub
+description: "{{1-2 câu tóm tắt nhanh}}"
 status: "🔄 doing"
 priority: {{🔴 urgent | 🟡 normal | 🟢 low}}
 progress: "{{ví dụ: 2/8 items done}}"
-created_at: {{YYYY-MM-DD}}
+timestamp: {{YYYY-MM-DDTHH:MM:SSZ}}
 tags: [{{tag1, tag2}}]
 ---
 
@@ -22,9 +23,9 @@ tags: [{{tag1, tag2}}]
 <!-- Tuỳ chọn: Chia phases nếu nhóm có lộ trình -->
 
 ### Phase 1: {{Tên phase}}
-- [ ] 📖 [[tracking/{{file-name}}|{{Title}}]] — {{ghi chú ngắn}}
-- [ ] 🎓 [[tracking/{{file-name}}|{{Title}}]]
-- [ ] 🔬 [[tracking/{{file-name}}|{{Title}}]]
+- [ ] 📖 [{{Title}}](/tracking/{{file-name}}.md) — {{ghi chú ngắn}}
+- [ ] 🎓 [{{Title}}](/tracking/{{file-name}}.md)
+- [ ] 🔬 [{{Title}}](/tracking/{{file-name}}.md)
 
 ### Phase 2: {{Tên phase}}
 - [ ] ...
@@ -34,7 +35,7 @@ tags: [{{tag1, tag2}}]
 ## 🔍 Dataview — Auto pull items
 
 ```dataview
-TABLE category, status, progress
+TABLE type, status, progress
 FROM "second-brain/tracking"
 WHERE contains(groups, "{{Tên nhóm chủ đề}}")
 SORT choice(status = "🔄 doing", 0, choice(status = "👀 reading", 1, choice(status = "⬜ todo", 2, 3))) ASC
@@ -43,7 +44,7 @@ SORT choice(status = "🔄 doing", 0, choice(status = "👀 reading", 1, choice(
 ---
 
 ## 🔗 Related Hubs
-- [[tracking/hubs/hub-{{related-group}}|{{Related Group}}]]
+- [{{Related Group}}](/tracking/hubs/hub-{{related-group}}.md)
 
 ## Log & Notes
 

@@ -1,11 +1,12 @@
 ---
+type: Wiki
 title: "{{CONCEPT_NAME}}"
+description: "{{1-2 câu tóm tắt nhanh}}"
 tags: [{{tag1}}, {{tag2}}]
-created: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
+timestamp: {{YYYY-MM-DDTHH:MM:SSZ}}
 status: draft | stable
-staging_source: "[[staging/{{source-file}}]]"
-related: ["[[related-1]]", "[[related-2]]"]
+staging_source: "[{{source-file}}](/staging/{{source-file}}.md)"
+related: ["[{{related-1}}](/wiki/{{related-1}}.md)", "[{{related-2}}](/wiki/{{related-2}}.md)"]
 difficulty: beginner | intermediate | advanced | expert
 ---
 
@@ -59,8 +60,8 @@ difficulty: beginner | intermediate | advanced | expert
 
 ## Related Concepts
 
-- [[concept-1]] — _(mối liên hệ)_
-- [[concept-2]] — _(mối liên hệ)_
+- [concept-1](/wiki/concept-1.md) — _(mối liên hệ)_
+- [concept-2](/wiki/concept-2.md) — _(mối liên hệ)_
 
 ---
-*Staging source: [[staging/{{source}}]] | Created: {{date}}*
+*Staging source: [{{source}}](/staging/{{source}}.md) | Created: {{date}}*

@@ -1,8 +1,9 @@
 ---
+type: ReviewCard
 title: "{{TOPIC}} — Interview Q&A"
+description: "Flashcard ôn tập phỏng vấn"
 tags: [interview, {{domain_tag}}]
-created: {{YYYY-MM-DD}}
-updated: {{YYYY-MM-DD}}
+timestamp: {{YYYY-MM-DDTHH:MM:SSZ}}
 status: draft
 difficulty: {{level}}
 ---
@@ -69,7 +70,7 @@ difficulty: {{level}}
 
 ## 📚 Deep Dive Resources
 
-- [[wiki/path/to/detailed-entry]] — Chi tiết đầy đủ
+- [Chi tiết đầy đủ](/wiki/path/to/detailed-entry.md)
 - [External Link](url) — Nguồn tham khảo
 
 ---

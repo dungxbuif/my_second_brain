@@ -1,3 +1,10 @@
+---
+type: Framework Documentation
+title: Second Brain — Documentation
+description: Official documentation and specifications for the Second Brain Framework
+timestamp: 2026-06-15T14:55:00Z
+---
+
 # 🧠 Second Brain — Documentation
 > **Version:** 1.1 | **Status:** 🟢 Released | **Updated:** 2026-06-10
 >

@@ -1,5 +1,8 @@
 ---
-date: {{YYYY-MM-DD}}
+type: Log
+title: "Nhật ký ngày {{YYYY-MM-DD}}"
+description: "Nhật ký hoạt động hàng ngày"
+timestamp: {{YYYY-MM-DDTHH:MM:SSZ}}
 status: log
 ---
 
@@ -17,5 +20,5 @@ status: log
 
 ## 🔗 Liên kết liên quan
 
-- [[tracking/{{dự án đang làm}}]]
-- [[raw/{{bài viết vừa đọc}}]]
+- [{{dự án đang làm}}](/tracking/{{dự án đang làm}}.md)
+- [{{bài viết vừa đọc}}](/raw/{{bài viết vừa đọc}}.md)

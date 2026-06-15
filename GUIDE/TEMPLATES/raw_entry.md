@@ -1,9 +1,10 @@
 ---
+type: Raw
 title: "{{MÔ TẢ NGẮN GỌN}}"
+description: "{{1-2 câu tóm tắt nhanh}}"
 source: "{{URL hoặc 'Master.md' hoặc 'manual'}}"
-type: link | article | video | pdf | note | code | job-posting
-category: knowledge
-captured_at: {{YYYY-MM-DD}}
+raw_type: link | article | video | pdf | note | code | job-posting
+timestamp: {{YYYY-MM-DDTHH:MM:SSZ}}
 tags: [{{tag1}}, {{tag2}}]
 status: unread
 priority: 🟡 normal

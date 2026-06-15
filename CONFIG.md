@@ -1,3 +1,10 @@
+---
+type: Configuration
+title: Second Brain Configuration
+description: Centralized configuration for inbox, tags, categories, and rules
+timestamp: 2026-06-15T14:55:00Z
+---
+
 # ⚙️ CONFIG — Second Brain Configuration
 > Chỉ **Human** được sửa file này. Agent chỉ đọc.
 
