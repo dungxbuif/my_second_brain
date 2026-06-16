@@ -5,10 +5,10 @@ description: Official documentation and specifications for the Second Brain Fram
 timestamp: 2026-06-15T14:55:00Z
 ---
 
-# 🧠 Second Brain — Documentation
-> **Version:** 1.1 | **Status:** 🟢 Released | **Updated:** 2026-06-10
+# Second Brain — Documentation
+> **Version:** 1.2 | **Status:** Released | **Updated:** 2026-06-16
 >
-> ⚠️ **Đây là source docs chính thức** của toàn bộ framework này.
+> **Đây là source docs chính thức** của toàn bộ framework này.
 > Mọi thay đổi về thiết kế, quy tắc, cấu trúc đều phải được phản ánh ở đây.
 > Agent phải đọc file này trước khi thao tác với hệ thống.
 
@@ -19,6 +19,7 @@ timestamp: 2026-06-15T14:55:00Z
 - [Ý tưởng](#-ý-tưởng)
 - [Mục đích](#-mục-đích)
 - [Nguyên tắc thiết kế](#-nguyên-tắc-thiết-kế)
+- [Subsystems](#-subsystems)
 - [Pipeline](#-pipeline)
 - [Cấu trúc thư mục](#-cấu-trúc-thư-mục)
 - [File Reference](#-file-reference)
@@ -31,17 +32,17 @@ timestamp: 2026-06-15T14:55:00Z
 
 ---
 
-## 💡 Ý tưởng
+## Ý tưởng
 
 Tôi tiếp nhận hàng tá thông tin mỗi ngày — links trên Facebook, bài viết Viblo, paper trên ACM, video YouTube, ý tưởng dự án, sách muốn đọc — nhưng tất cả nằm rải rác, không hệ thống, và dần bị quên.
 
-Second Brain giải quyết vấn đề đó bằng một **pipeline có cấu trúc**, kết hợp **AI Agent** để tự động hoá phần nặng nhọc nhất: thu thập, phân loại, tóm tắt. Tôi chỉ cần dump thông tin thô vào — AI xử lý — tôi đọc bản cô đọng khi rảnh — và tự tay viết wiki khi đã hiểu sâu.
+Second Brain giải quyết vấn đề đó bằng một **pipeline có cấu trúc**, kết hợp AI/automation layer để tự động hoá phần nặng nhọc nhất: thu thập, phân loại, tóm tắt. Tôi chỉ cần dump thông tin thô vào — hệ thống xử lý — tôi đọc bản cô đọng khi rảnh — và tự tay viết wiki khi đã hiểu sâu.
 
 Ngoài kiến thức, hệ thống tracking **mọi thứ đang dở dang** — sách, dự án, khóa học, thói quen, ý tưởng — để khi tôi "không biết làm gì", AI có data để gợi ý.
 
 ---
 
-## 🎯 Mục đích
+## Mục đích
 
 | Vấn đề | Giải pháp |
 |--------|-----------|
@@ -54,16 +55,17 @@ Ngoài kiến thức, hệ thống tracking **mọi thứ đang dở dang** — 
 
 ---
 
-## 🧬 Nguyên tắc thiết kế
+## Nguyên tắc thiết kế
 
 > Những quyết định nền tảng định hình cách framework hoạt động.
 
-### 1. Human owns knowledge, Agent owns process
+### 1. Human owns knowledge, Orchestrator owns process
 - Human quyết định cái gì đáng giữ, cái gì viết thành wiki
-- Agent lo thu thập, phân loại, tóm tắt, nhắc nhở
+- Orchestrator/Agent layer lo thu thập, phân loại, tóm tắt, nhắc nhở
+- Domain module chỉ expose API và validate quy tắc nghiệp vụ; không chứa prompt/tool-call logic
 
 ### 2. Flexible over rigid
-- INDEX.md dùng **1 bảng tracking chung** thay vì hardcode nhiều sections
+- Tracking dùng **các file markdown + frontmatter** thay vì hardcode nhiều sections
 - Category chỉ là 1 field — thêm loại mới = thêm row, không cần sửa cấu trúc
 - Hệ thống phải thích ứng theo cách dùng thực tế, không ép user theo template
 
@@ -72,7 +74,8 @@ Ngoài kiến thức, hệ thống tracking **mọi thứ đang dở dang** — 
 - `staging/` là bản AI xử lý — có thể tạo lại bất cứ lúc nào từ raw
 
 ### 4. Single source of truth
-- `INDEX.md` = nơi duy nhất tracking trạng thái mọi thứ
+- Markdown files + YAML frontmatter = source of truth cho knowledge/tracking state
+- `INDEX.md` = dashboard/query view bằng Dataview, không phải database thủ công
 - `CONFIG.md` = nơi duy nhất cấu hình hệ thống
 - File này (`README.md`) = nơi duy nhất mô tả thiết kế
 
@@ -81,16 +84,40 @@ Ngoài kiến thức, hệ thống tracking **mọi thứ đang dở dang** — 
 - Dùng đến đâu, mở rộng đến đó
 - AI thích ứng gợi ý dựa trên data thực tế có trong INDEX
 
+### 6. Preserve traceability
+- Wiki phải truy vết được về staging/raw source khi có thể
+- `staging/` không bị xóa cứng sau khi promote; nên archive hoặc mark `archived`
+- `raw/` có thể move sang `archive/raw/`, nhưng không được mất source gốc
+
 ---
 
-## 🏗️ Pipeline
+## Subsystems
+
+Framework được chia thành 4 subsystem để tránh trộn knowledge management với productivity tracking:
+
+| Subsystem | Vai trò |
+|-----------|---------|
+| **Knowledge Pipeline** | Thu thập và xử lý tri thức: `inbox -> raw -> staging -> wiki` |
+| **Tracking System** | Quản lý sách, project, course, habit, task, research, usecase, hub |
+| **Review & Planning** | Daily log, weekly review, stale detection, plan suggestion |
+| **Governance** | Config, taxonomy, templates, audit/log, human confirmation cho framework changes |
+
+Quy tắc ranh giới:
+- `raw/staging/wiki` là knowledge pipeline.
+- `tracking/` là productivity/project tracking.
+- Hai bên có thể liên kết qua `related`, `groups`, tags và markdown links, nhưng không nên trộn lifecycle.
+- `INDEX.md` chỉ tổng hợp/query; không phải nơi lưu trạng thái duy nhất.
+
+---
+
+## Pipeline
 
 ```
 INBOX Sources ──► raw/ ──► staging/ ──► wiki/ (human)
      │              │          │            │
      │              └──── INDEX.md ◄────────┘
      │                         │
-     │                    AI phân tích
+     │                    Orchestrator phân tích
      │                         │
      │                    Gợi ý / Nhắc nhở
      │                         │
@@ -104,19 +131,19 @@ INBOX Sources ──► raw/ ──► staging/ ──► wiki/ (human)
 | 1 | **COLLECT** | Agent | Quét INBOX sources → tách từng item |
 | 2 | **NORMALIZE** | Agent | Tạo file `raw/` chuẩn hoá (metadata + nguyên văn) |
 | 3 | **DIGEST** | Agent | Đọc raw → tóm tắt cô đọng → `staging/` |
-| 4 | **INDEX** | Agent | Cập nhật tracking board trong `INDEX.md` |
+| 4 | **INDEX** | Agent | Cập nhật files/frontmatter để `INDEX.md` tự query qua Dataview |
 | 5 | **SUGGEST** | Agent | Phân tích data → gợi ý plan / nhắc nhở |
-| 6 | **CLEANUP** | Agent | Xóa staging & archive raw sau khi tạo wiki thành công |
+| 6 | **CLEANUP** | Agent | Archive/mark staging & archive raw sau khi tạo wiki thành công |
 
 > Chi tiết từng bước: xem [[GUIDE/WORKFLOW.md]]
 
 ---
 
-## 📂 Cấu trúc thư mục
+## Cấu trúc thư mục
 
 ```
 second-brain/
-├── README.md        ← ★ Source docs chính thức (file này)
+├── README.md        ← Source docs chính thức (file này)
 ├── AGENTS.md        ← Quy tắc & hành vi cho AI Agent
 ├── CONFIG.md        ← Cấu hình: inbox sources, tags, nudge thresholds
 ├── INDEX.md         ← Master Tracking (Dataview Dashboard)
@@ -134,13 +161,13 @@ second-brain/
 
 ---
 
-## 📄 File Reference
+## File Reference
 
 | File | Vai trò | Ai sửa |
 |------|---------|--------|
 | [[AGENTS.md]] | **Gateway** — entry point cho AI Agent, link đến docs chi tiết | Human |
 | [[CONFIG.md]] | Cấu hình: inbox paths, allowed tags, taxonomy, nudge thresholds | Human |
-| [[INDEX.md]] | Dataview Dashboard tracking + plan | Agent + Human |
+| [[INDEX.md]] | Dataview Dashboard tracking + plan; không phải database | Agent + Human |
 | [[GUIDE/WORKFLOW.md]] | Chi tiết kỹ thuật 6 bước pipeline | Human |
 | [[GUIDE/TEMPLATES/raw_entry.md]] | Template cho file raw/ | Human |
 | [[GUIDE/TEMPLATES/staging_entry.md]] | Template cho file staging/ | Human |
@@ -148,20 +175,20 @@ second-brain/
 | [[GUIDE/TEMPLATES/tracking_entry.md]] | Template cho tracking item | Human |
 | [[GUIDE/TEMPLATES/daily_log.md]] | Template cho daily log | Human |
 | **README.md** (file này) | Source docs chính thức | Human |
-| [[CHANGELOG.md]] | Nhật ký các phiên bản và thay đổi cấu trúc | Human |
+| [[log.md]] | Nhật ký các phiên bản và thay đổi cấu trúc | Human |
 
 ---
 
-## 📊 INDEX.md — Tracking System
+## INDEX.md — Tracking System
 
 ### Thiết kế (Dataview)
 
-INDEX không còn dùng Markdown table thủ công. Thay vào đó, dùng plugin **Dataview** để tự động query từ các file markdown.
+INDEX không còn dùng Markdown table thủ công. Thay vào đó, dùng plugin **Dataview** để tự động query từ các file markdown. Source of truth là các file markdown và YAML frontmatter trong `raw/`, `staging/`, `wiki/`, `tracking/`, `dailylogs/`.
 Mỗi item cần track (sách, task, khóa học) sẽ là **1 file riêng** nằm trong thư mục `tracking/`.
 
 - **Category** = tự do: `knowledge`, `book`, `project`, `course`, `habit`, `research`, `task`, `idea`
 - Thêm item mới = Tạo file mới trong `tracking/` (dùng `tracking_entry.md`)
-- AI phân tích toàn bộ bảng → gợi ý thích ứng theo data thực tế
+- AI/Orchestrator phân tích dữ liệu từ files/frontmatter → gợi ý thích ứng theo data thực tế
 
 ### Kèm theo
 
@@ -171,9 +198,9 @@ Mỗi item cần track (sách, task, khóa học) sẽ là **1 file riêng** n�
 
 ---
 
-## 🧑‍💻 Cách dùng — Example Prompts
+## Cách dùng — Example Prompts
 
-### 📥 Thu thập & xử lý
+### Thu thập & xử lý
 
 | Muốn làm | Prompt |
 |----------|--------|
@@ -182,7 +209,7 @@ Mỗi item cần track (sách, task, khóa học) sẽ là **1 file riêng** n�
 | Tóm tắt 1 file cụ thể | *"Đọc và tóm tắt [file] vào staging"* |
 | Tóm tắt từ conversation | *"Tóm tắt discussion về [topic] vào staging"* |
 
-### 📊 Tracking
+### Tracking
 
 | Muốn làm | Prompt |
 |----------|--------|
@@ -191,7 +218,7 @@ Mỗi item cần track (sách, task, khóa học) sẽ là **1 file riêng** n�
 | Cập nhật progress | *"Update [item]: [progress mới]"* |
 | Hoãn 1 item | *"Defer [item]"* |
 
-### 🧠 AI gợi ý
+### AI gợi ý
 
 | Muốn làm | Prompt |
 |----------|--------|
@@ -201,7 +228,7 @@ Mỗi item cần track (sách, task, khóa học) sẽ là **1 file riêng** n�
 | Phân tích gaps | *"Tôi đang thiếu gì?"* |
 | Research topic | *"Tìm hiểu về [topic]"* |
 
-### 📝 Nhật ký
+### Nhật ký
 
 | Muốn làm | Prompt |
 |----------|--------|
@@ -210,18 +237,18 @@ Mỗi item cần track (sách, task, khóa học) sẽ là **1 file riêng** n�
 
 ---
 
-## 🤖 Vai trò AI Agent
+## Vai trò AI Agent
 
 ### Permissions
 
 | Quyền | Agent | Human |
 |-------|-------|-------|
-| Tạo `raw/`, `staging/` | ✅ | ✅ |
-| Tạo `wiki/` | ❌ (chỉ đề xuất draft) | ✅ |
-| Cập nhật `INDEX.md` | ✅ (Tạo/sửa file tracking/ thay vì sửa table) | ✅ |
-| Xoá file / Move file | ✅ (Xoá staging, move raw sau khi có wiki) | ✅ |
-| Sửa `CONFIG.md`, `README.md` | ❌ (chỉ đề xuất) | ✅ |
-| Nhắc nhở chủ động | ✅ | — |
+| Tạo `raw/`, `staging/` | yes | yes |
+| Tạo `wiki/` | no (chỉ đề xuất draft) | yes |
+| Cập nhật `INDEX.md` | yes (Tạo/sửa file tracking/ thay vì sửa table) | yes |
+| Xoá file / Move file | yes (Archive/mark staging, move raw sau khi có wiki) | yes |
+| Sửa `CONFIG.md`, `README.md` | no (chỉ đề xuất) | yes |
+| Nhắc nhở chủ động | yes | — |
 
 ### Hành vi chủ động (Proactive)
 
@@ -239,16 +266,16 @@ Agent **tự nhắc** khi phát hiện (ngưỡng cấu hình trong CONFIG.md):
 
 ```
 Agent đọc toàn bộ INDEX.md → phân tích:
-  1. 🔴 Urgent + Overdue → ưu tiên đầu
-  2. 🔄 Items đang dở → tiếp tục
-  3. ⚡ Quick wins (< 30 phút) → chen giữa
-  4. 🧠 Deep work → block thời gian
-  5. 📌 Backlog → pick 1 nếu rảnh
+  1. Urgent + Overdue → ưu tiên đầu
+  2. Items đang dở → tiếp tục
+  3. Quick wins (< 30 phút) → chen giữa
+  4. Deep work → block thời gian
+  5. Backlog → pick 1 nếu rảnh
 ```
 
 ---
 
-## 🗂️ Templates
+## Templates
 
 | Template | Dùng cho |
 |----------|---------|
@@ -262,7 +289,7 @@ Agent đọc toàn bộ INDEX.md → phân tích:
 
 ---
 
-## 🧬 Self-Evolving Framework
+## Self-Evolving Framework
 
 > Framework này **tự phát triển** theo cách dùng thực tế.
 
@@ -281,7 +308,7 @@ Khi Human đưa ra yêu cầu mà framework chưa cover (chưa có workflow, cat
 Human: "Track tiến độ đọc paper, mỗi paper có sections"
 Agent:
   → Xử lý: thêm entries vào INDEX
-  → Đề xuất: "💡 Paper tracking khác sách. Đề xuất thêm
+  → Đề xuất: "Paper tracking khác sách. Đề xuất thêm
     progress format 'S.3/7' vào CONFIG. Đồng ý?"
 ```
 
@@ -289,7 +316,7 @@ Agent:
 Human: "Tôi muốn track calories"
 Agent:
   → Xử lý: thêm entry category 'health'
-  → Đề xuất: "💡 Category 'health' mới. Thêm vào CONFIG?"
+  → Đề xuất: "Category 'health' mới. Thêm vào CONFIG?"
 ```
 
 ### File nào bị ảnh hưởng khi framework evolve
@@ -299,13 +326,14 @@ Agent:
 | CONFIG.md | Thêm tags, categories, statuses, rules mới |
 | GUIDE/WORKFLOW.md | Thêm/sửa steps pipeline |
 | GUIDE/TEMPLATES/ | Thêm template mới |
-| **GUIDE/README.md** | **LUÔN LUÔN** — ghi changelog |
+| **README.md** | **LUÔN LUÔN** — cập nhật source docs chính thức |
+| **log.md** | **LUÔN LUÔN** — ghi changelog |
 
 > Rule: [[AGENTS.md]] phần SELF-EVOLVE quy định chi tiết hành vi agent.
 
 ---
 
-## 🔮 Hướng phát triển
+## Hướng phát triển
 
 > Ý tưởng mở rộng — chưa implement, sẽ đánh giá lại khi framework ổn định.
 
@@ -319,10 +347,11 @@ Agent:
 
 ---
 
-## 📜 Changelog
+## Changelog
 
-Xem chi tiết lịch sử cập nhật cấu trúc và quy tắc framework tại: **[[CHANGELOG.md]]**
+Xem chi tiết lịch sử cập nhật cấu trúc và quy tắc framework tại: **[[log.md]]**
 
+- **v1.2 (2026-06-16)**: Tách 4 subsystem, làm rõ source-of-truth, giữ trace staging/raw, thêm canonical statuses.
 - **v1.1 (2026-06-10)**: Thêm Generic Grouping (`groups` field) & Hub Notes (`tracking/hubs/`).
 - **v1.0 (2026-06-05)**: Phiên bản đầu tiên với pipeline 6 bước và Dataview tracking.
 

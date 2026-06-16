@@ -36,7 +36,7 @@ difficulty: beginner | intermediate | advanced | expert
 
 ## Trade-offs (Đánh đổi)
 
-| Pros ✅ | Cons ❌ |
+| Pros | Cons |
 |---------|---------|
 | ... | ... |
 
@@ -55,8 +55,8 @@ difficulty: beginner | intermediate | advanced | expert
 
 ## Common Mistakes
 
-- ❌ **Sai:** ...
-  ✅ **Đúng:** ...
+- Incorrect: ...
+  Correct: ...
 
 ## Related Concepts
 

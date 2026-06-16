@@ -5,12 +5,12 @@ description: Centralized configuration for inbox, tags, categories, and rules
 timestamp: 2026-06-15T14:55:00Z
 ---
 
-# ⚙️ CONFIG — Second Brain Configuration
+# CONFIG — Second Brain Configuration
 > Chỉ **Human** được sửa file này. Agent chỉ đọc.
 
 ---
 
-## 📥 INBOX Sources
+## INBOX Sources
 
 Agent quét các file này khi yêu cầu "process inbox":
 
@@ -27,7 +27,7 @@ inbox_sources:
 
 ---
 
-## 🏷️ Tags
+## Tags
 
 ```yaml
 # Domain
@@ -67,7 +67,7 @@ type_tags:
 
 ---
 
-## 📦 Categories (Tracking)
+## Categories (Tracking)
 
 ```yaml
 categories:
@@ -82,7 +82,7 @@ categories:
 
 ---
 
-## 🗂️ Wiki Taxonomy
+## Wiki Taxonomy
 
 ```yaml
 wiki_paths:
@@ -103,78 +103,95 @@ wiki_paths:
 
 ---
 
-## 📊 Statuses
+## Statuses
+
+> API/domain logic và Obsidian presentation đều dùng status plain text, không dùng biểu tượng.
+
+```yaml
+canonical_statuses:
+  raw: "raw"
+  staged: "staged"
+  reading: "reading"
+  wiki: "wiki"
+  todo: "todo"
+  doing: "doing"
+  done: "done"
+  paused: "paused"
+  active: "active"
+  deferred: "deferred"
+  archived: "archived"
+```
 
 ```yaml
 # Knowledge Pipeline
 knowledge_statuses:
-  - "📥 raw"          # Đã thu thập, chưa tóm tắt
-  - "🧠 staged"       # AI đã tóm tắt
-  - "👀 reading"      # Human đang đọc
-  - "✅ wiki"          # Đã tạo wiki entry
-  - "📌 deferred"     # Tạm hoãn
-  - "🗑️ archived"     # Không còn relevant
+  - "raw"          # Đã thu thập, chưa tóm tắt
+  - "staged"       # AI đã tóm tắt
+  - "reading"      # Human đang đọc
+  - "wiki"          # Đã tạo wiki entry
+  - "deferred"     # Tạm hoãn
+  - "archived"     # Không còn relevant
 
 # General
 task_statuses:
-  - "⬜ todo"
-  - "🔄 doing"
-  - "✅ done"
-  - "📌 deferred"
+  - "todo"
+  - "doing"
+  - "done"
+  - "deferred"
 
 # Reading
 reading_statuses:
-  - "📖 reading"
-  - "⏸️ paused"
-  - "✅ done"
-  - "📌 deferred"
+  - "reading"
+  - "paused"
+  - "done"
+  - "deferred"
 
 # Projects
 project_statuses:
-  - "🔄 in-progress"
-  - "⏸️ paused"
-  - "✅ done"
-  - "📌 deferred"
-  - "💀 abandoned"
+  - "in-progress"
+  - "paused"
+  - "done"
+  - "deferred"
+  - "abandoned"
 
 # Courses
 course_statuses:
-  - "🎯 active"
-  - "⏸️ paused"
-  - "✅ completed"
-  - "📌 deferred"
+  - "active"
+  - "paused"
+  - "completed"
+  - "deferred"
 
 # Habits
 habit_statuses:
-  - "🔥 active"       # Đang duy trì streak
-  - "❄️ broken"        # Streak bị đứt
-  - "✅ established"   # Đã thành thói quen (> 30 ngày)
-  - "📌 deferred"
+  - "active"       # Đang duy trì streak
+  - "broken"        # Streak bị đứt
+  - "established"   # Đã thành thói quen (> 30 ngày)
+  - "deferred"
 
 # Research
 research_statuses:
-  - "🔍 exploring"
-  - "📝 noted"
-  - "🧠 staged"
-  - "✅ understood"
-  - "📌 deferred"
+  - "exploring"
+  - "noted"
+  - "staged"
+  - "understood"
+  - "deferred"
 ```
 
 ---
 
-## ⏰ Priorities
+## Priorities
 
 ```yaml
 priorities:
-  - "🔴 urgent"       # Cần làm ngay
-  - "🟡 normal"       # Khi có thời gian
-  - "🟢 low"          # Tham khảo
-  - "⚪ someday"      # Chưa biết khi nào
+  - "urgent"       # Cần làm ngay
+  - "normal"       # Khi có thời gian
+  - "low"          # Tham khảo
+  - "someday"      # Chưa biết khi nào
 ```
 
 ---
 
-## 🔔 Nudge Thresholds
+## Nudge Thresholds
 
 ```yaml
 # Agent nhắc nhở khi:
@@ -190,7 +207,7 @@ nudge_rules:
 
 ---
 
-## 📦 Groups (Free-form)
+## Groups (Free-form)
 
 > `groups` là trường trong frontmatter của tracking entry, dùng để gán item vào 1 hoặc nhiều nhóm chủ đề.
 > **Free-form** — không có danh sách cố định. Đặt tên tự do, Dataview tự query.

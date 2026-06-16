@@ -6,8 +6,8 @@ raw_source: "[{{YYYY-MM-DD_slug}}](/raw/{{YYYY-MM-DD_slug}}.md)"
 timestamp: {{YYYY-MM-DDTHH:MM:SSZ}}
 tags: [{{tag1}}, {{tag2}}]
 wiki_path: "{{engineering/database}}"
-status: 🧠 staged
-priority: 🟡 normal
+status: staged
+priority: normal
 ---
 
 # {{Title}}
@@ -26,7 +26,7 @@ priority: 🟡 normal
 
 ## Trade-offs (Đánh đổi)
 
-| Pros ✅ | Cons ❌ |
+| Pros | Cons |
 |---------|---------|
 | {{...}} | {{...}} |
 
@@ -36,7 +36,7 @@ priority: 🟡 normal
 
 ## Related (Liên kết)
 - [{{staging hoặc wiki entry liên quan}}](/staging/{{file-name}}.md)
-- 🔍 Cần tìm hiểu thêm: {{topic chưa có trong vault}}
+- Cần tìm hiểu thêm: {{topic chưa có trong vault}}
 
 ---
 *Raw source: [{{source-file}}](/raw/{{source-file}}.md) | Staged: {{YYYY-MM-DD}}*

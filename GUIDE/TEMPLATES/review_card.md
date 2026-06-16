@@ -8,14 +8,14 @@ status: draft
 difficulty: {{level}}
 ---
 
-# 🎯 {{TOPIC}} — Interview Prep
+# {{TOPIC}} — Interview Prep
 
 > **Level:** {{Junior | Mid | Senior | Staff}}
 > **Domain:** {{Database | System Design | Architecture | ...}}
 
 ---
 
-## 🔑 Core Concepts to Know
+## Core Concepts to Know
 
 <!-- 3-5 bullet points. Những thứ PHẢI biết trước phỏng vấn -->
 - ...
@@ -24,11 +24,11 @@ difficulty: {{level}}
 
 ---
 
-## ❓ Question Bank
+## Question Bank
 
 ### Question 1: {{Question text?}}
 
-**Difficulty:** ⭐⭐⭐☆☆ (Mid)
+**Difficulty:** 3/5 (Mid)
 
 **Answer Framework:**
 1. **Define:** ...
@@ -45,14 +45,14 @@ difficulty: {{level}}
 
 ### Question 2: {{Question text?}}
 
-**Difficulty:** ⭐⭐⭐⭐☆ (Senior)
+**Difficulty:** 4/5 (Senior)
 
 **Answer Framework:**
 1. ...
 
 ---
 
-## 🧠 Mental Model
+## Mental Model
 
 <!-- Một cách nhớ/hình dung concept giúp giải thích dễ hơn -->
 
@@ -60,7 +60,7 @@ difficulty: {{level}}
 
 ---
 
-## ⚠️ Common Traps
+## Common Traps
 
 <!-- Những điều examiners hay hỏi để "bẫy" -->
 - **Trap:** Nhiều người nghĩ rằng... nhưng thực ra...
@@ -68,7 +68,7 @@ difficulty: {{level}}
 
 ---
 
-## 📚 Deep Dive Resources
+## Deep Dive Resources
 
 - [Chi tiết đầy đủ](/wiki/path/to/detailed-entry.md)
 - [External Link](url) — Nguồn tham khảo

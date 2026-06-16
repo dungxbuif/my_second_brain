@@ -6,8 +6,8 @@ source: "{{URL hoặc 'Master.md' hoặc 'manual'}}"
 raw_type: link | article | video | pdf | note | code | job-posting
 timestamp: {{YYYY-MM-DDTHH:MM:SSZ}}
 tags: [{{tag1}}, {{tag2}}]
-status: unread
-priority: 🟡 normal
+status: raw
+priority: normal
 ---
 
 ## Mô tả
@@ -19,6 +19,6 @@ priority: 🟡 normal
 OPTION A: Nguyên văn nếu ngắn (<500 dòng) — paste bên dưới
 OPTION B: Link + preview nếu dài:
 
-> 📎 Full content: [Link](url)
+> Full content: [Link](url)
 > **Preview:** ...
 -->

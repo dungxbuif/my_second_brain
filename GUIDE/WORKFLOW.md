@@ -5,12 +5,12 @@ description: "Quy trình chi tiết của hệ thống"
 timestamp: 2026-06-15T14:55:00Z
 ---
 
-# ⚙️ WORKFLOW v2 — Pipeline Chi Tiết
+# WORKFLOW v2 — Pipeline Chi Tiết
 > Đọc trước: [[../AGENTS.md]] | Config: [[../CONFIG.md]]
 
 ---
 
-## 🔁 Full Pipeline
+## Full Pipeline
 
 ```
 INBOX Sources ──┐
@@ -24,7 +24,7 @@ Human dump ─────┘  ▲  │          │            │
 
 ---
 
-## 📥 PHASE 1: COLLECT (Thu thập)
+## PHASE 1: COLLECT (Thu thập)
 
 ### 1.1 Khi User yêu cầu "Process inbox"
 Agent quét **3 nguồn** theo thứ tự:
@@ -65,7 +65,7 @@ Khi phát hiện → Agent **chuẩn hoá tại chỗ**:
 
 ---
 
-## 📄 PHASE 2: NORMALIZE (Chuẩn hóa vào raw/)
+## PHASE 2: NORMALIZE (Chuẩn hóa vào raw/)
 
 ### 2.1 Template cho raw/ file
 
@@ -76,8 +76,8 @@ source: "URL chính hoặc 'Master.md' hoặc 'conversation'"
 type: link | article | video | pdf | note | code | job-posting
 captured_at: YYYY-MM-DD
 tags: [system-design, database]
-status: unread
-priority: 🟡 normal
+status: raw
+priority: normal
 ---
 
 ## Mô tả
@@ -89,7 +89,7 @@ priority: 🟡 normal
 [Paste nội dung gốc ở đây]
 
 <!-- OPTION B: Link + tóm tắt nếu dài (>500 dòng) -->
-> 📎 Full content: [Link đến source](url)
+> Full content: [Link đến source](url)
 > 
 > **Preview (5 dòng đầu):**
 > ...
@@ -100,11 +100,11 @@ priority: 🟡 normal
 Format: YYYY-MM-DD_<slug-mô-tả>.md
 Slug: kebab-case, tiếng Anh, tối đa 6 từ
 
-✅ 2026-06-05_kafka-io-disk-vs-ram.md
-✅ 2026-06-05_replication-lag-sync-async.md
-✅ 2026-06-05_db-design-roadmap-senior.md
-❌ 2026-06-05_bài_viết_hay.md (tiếng Việt)
-❌ 2026-06-05_article.md (quá chung chung)
+OK 2026-06-05_kafka-io-disk-vs-ram.md
+OK 2026-06-05_replication-lag-sync-async.md
+OK 2026-06-05_db-design-roadmap-senior.md
+Avoid 2026-06-05_bài_viết_hay.md (tiếng Việt)
+Avoid 2026-06-05_article.md (quá chung chung)
 ```
 
 ### 2.3 Xử lý edge cases
@@ -119,7 +119,7 @@ Slug: kebab-case, tiếng Anh, tối đa 6 từ
 
 ---
 
-## 🧠 PHASE 3: DIGEST (AI tóm tắt vào staging/)
+## PHASE 3: DIGEST (AI tóm tắt vào staging/)
 
 Đây là bước **quan trọng nhất** — Agent biến raw thành kiến thức cô đọng.
 
@@ -132,8 +132,8 @@ raw_source: "[[raw/YYYY-MM-DD_slug.md]]"
 created: YYYY-MM-DD
 tags: [tag1, tag2]
 wiki_path: "engineering/system-design"
-status: 🧠 staged
-priority: 🟡 normal
+status: staged
+priority: normal
 ---
 
 # {Title}
@@ -152,7 +152,7 @@ Flow / Diagram nếu cần
 
 ## Trade-offs (Đánh đổi)
 
-| Pros ✅ | Cons ❌ |
+| Pros | Cons |
 |---------|---------|
 | ... | ... |
 
@@ -162,7 +162,7 @@ Flow / Diagram nếu cần
 
 ## Related (Liên kết)
 - [[staging/related-entry]] hoặc [[wiki/path/to/entry]] nếu đã có
-- 🔍 Cần tìm hiểu thêm: [topic chưa có trong vault]
+- Cần tìm hiểu thêm: [topic chưa có trong vault]
 
 ---
 *Raw source: [[raw/YYYY-MM-DD_slug.md]] | Staged: YYYY-MM-DD*
@@ -181,26 +181,28 @@ Flow / Diagram nếu cần
 
 ---
 
-## 📊 PHASE 4: INDEX (Tracking)
+## PHASE 4: INDEX (Tracking)
 
 ### 4.1 Dataview Tracking
-Dataview sẽ tự động quét các file `raw/` và `staging/` thông qua frontmatter (`status`, `priority`, `category`). Không cần phải thêm row thủ công vào `INDEX.md` nữa.
+Dataview sẽ tự động quét các file `raw/`, `staging/`, `tracking/`, `dailylogs/` thông qua frontmatter (`status`, `priority`, `category`, `groups`). Không cần phải thêm row thủ công vào `INDEX.md` nữa.
+
+Source of truth là các file markdown + YAML frontmatter. `INDEX.md` chỉ là dashboard/query view, không phải database thủ công.
 
 ### 4.2 Cập nhật Tracking (Sách, Khóa học, Tasks, Projects...)
 
 Nếu có việc mới cần track, tạo 1 file riêng trong thư mục `tracking/` (dùng template `tracking_entry.md`).
 - File: `tracking/ten-du-an.md`
-- Frontmatter: `category: project`, `status: 🔄 doing`
+- Frontmatter: `category: project`, `status: doing`
 
 Dataview trong `INDEX.md` sẽ tự động hiển thị nó lên bảng To-Do/Doing.
 
 ---
 
-## 💡 PHASE 5: SUGGEST (Khi được hỏi)
+## PHASE 5: SUGGEST (Khi được hỏi)
 
 ### 5.1 "Gợi ý plan hôm nay / tuần này"
 Agent phân tích:
-- Items trong staging/ có `status: 🧠 staged` → ưu tiên `priority: 🔴 urgent`
+- Items trong staging/ có `status: staged` → ưu tiên `priority: urgent`
 - Items trong Backlog → gợi ý pick up
 - TODO tasks sắp deadline
 
@@ -216,16 +218,17 @@ Agent so sánh wiki taxonomy (CONFIG.md) với nội dung hiện có trong wiki/
 
 ---
 
-## 🧹 PHASE 6: CLEANUP (Dọn dẹp)
+## PHASE 6: CLEANUP (Dọn dẹp)
 
 Sau khi Human hoàn tất việc chuyển đổi kiến thức từ `staging/` sang `wiki/` thành công:
 
-1. **Delete Staging**: Agent sẽ XÓA (delete) file `staging/` tương ứng (vì nội dung đã được lưu vĩnh viễn ở wiki).
+1. **Archive/Mark Staging**: Agent không xóa cứng staging. Thay vào đó, cập nhật `status: archived` hoặc chuyển file sang `archive/staging/` để giữ trace từ wiki về bản digest.
 2. **Archive Raw**: Agent sẽ CHUYỂN (move) file `raw/` tương ứng sang thư mục `archive/raw/`. Việc này giữ `raw/` không bị phình to nhưng vẫn lưu được tài liệu gốc để đối chiếu trong tương lai.
+3. **Preserve Links**: Wiki entry nên giữ link về staging/raw source nếu có, để truy vết nguồn.
 
 ---
 
-## ⏱️ TRIGGERS (Khi nào chạy gì)
+## TRIGGERS (Khi nào chạy gì)
 
 | Human nói | Agent làm |
 |-----------|-----------|
@@ -234,7 +237,7 @@ Sau khi Human hoàn tất việc chuyển đổi kiến thức từ `staging/` s
 | "Plan tuần này" | Phase 5.1: Phân tích staged + backlog → suggest |
 | "Draft wiki cho [topic]" | Phase 5.2: Đọc staging → viết draft |
 | "Thêm [text/link] vào inbox" | Phase 2→3→4: Tạo raw/ → staging/ → INDEX |
-| "Status check" | Đọc INDEX.md → báo cáo dashboard |
+| "Status check" | Đọc files/frontmatter được INDEX.md query → báo cáo dashboard |
 
 ---
 
